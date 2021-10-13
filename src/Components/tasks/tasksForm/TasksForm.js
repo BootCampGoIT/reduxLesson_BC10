@@ -1,9 +1,13 @@
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { addTasks } from "../../../redux/tasks/tasksActions";
 
-const TasksForm = ({ addNewTask }) => {
+
+const TasksForm = () => {
   const [taskName, setTaskName] = useState("");
   const [details, setDetails] = useState("");
   const [done, setDone] = useState(false);
+  const dispatch = useDispatch();
 
   const onHandleChange = ({ target }) => {
     const { value, name } = target;
@@ -15,11 +19,12 @@ const TasksForm = ({ addNewTask }) => {
   const onHandleSubmit = (e) => {
     e.preventDefault();
     // ================
-    addNewTask({ taskName, done, details });
+    dispatch(addTasks({ taskName, done, details }));
     setTaskName("");
     setDetails("");
     setDone(false);
   };
+  
   return (
     <form onSubmit={onHandleSubmit}>
       <label>

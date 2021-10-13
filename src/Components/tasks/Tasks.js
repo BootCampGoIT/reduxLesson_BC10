@@ -1,40 +1,25 @@
 import React from "react";
-import { connect } from "react-redux";
-import {
-  addTasks,
-  removeTask,
-  setTaskStatus,
-} from "../../redux/tasks/tasksActions";
 import TasksForm from "./tasksForm/TasksForm";
 import TasksList from "./tasksList/TasksList";
 
-const Tasks = ({ addTasks, tasks, setTaskStatus, removeTask }) => {
-//   const addNewTask = (task) => {
-//     addTasks({ ...task, id: Date.now().toString() });
-//   };
+const Tasks = () => {
+ 
   return (
     <section>
-      <TasksForm addNewTask={addTasks} />
+      <TasksForm  />
       <TasksList
-        tasks={tasks}
-        setTaskStatus={setTaskStatus}
-        removeTask={removeTask}
       />
     </section>
   );
 };
 
-const mapStateToProps = (state) => {
-  return {
-    tasks: state.tasks.list,
-  };
-};
+// const mapStateToProps = (state) => {
+//   return {
+//     tasks: state.tasks.list,
+//   };
+// };
 
-export default connect(mapStateToProps, {
-  addTasks,
-  setTaskStatus,
-  removeTask,
-})(Tasks);
+export default Tasks;
 
 // ========================
 // const connect = (callback1, callback2) => {

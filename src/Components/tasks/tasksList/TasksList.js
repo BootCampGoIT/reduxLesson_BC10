@@ -1,6 +1,13 @@
 import React from "react";
+import { removeTask, setTaskStatus } from "../../../redux/tasks/tasksActions";
+import { useDispatch, useSelector } from "react-redux";
 
-const TasksList = ({ tasks, setTaskStatus, removeTask }) => {
+
+
+const TasksList = () => {
+  const dispatch = useDispatch();
+  const tasks = useSelector((state) => state.tasks.list);
+  // const isLoading = useSelector((state) => state.tasks.isLoading);
   return (
     <ul>
       {tasks.map((task) => (
@@ -12,10 +19,10 @@ const TasksList = ({ tasks, setTaskStatus, removeTask }) => {
             <input
               type='checkbox'
               checked={task.done}
-              onChange={() => setTaskStatus(task.id)}
+              onChange={() => dispatch(setTaskStatus(task.id))}
             />
           </label>
-          <button type='button' onClick={() => removeTask(task.id)}>
+          <button type='button' onClick={() => dispatch(removeTask(task.id))}>
             Delete
           </button>
         </li>
