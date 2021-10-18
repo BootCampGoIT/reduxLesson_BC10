@@ -1,23 +1,17 @@
 import React from "react";
-import { useDispatch } from "react-redux";
-import {
-  removeTasksOperation,
-  setTaskStatusOperation,
-} from "../../../../redux/tasks/tasksOperations";
 
-const TaskListItem = ({ task }) => {
-  const dispatch = useDispatch();
-  const setStatus = () => dispatch(setTaskStatusOperation(task));
-  const remove = () => dispatch(removeTasksOperation(task.id));
+const TaskListItem = ({ task, setStatus, remove }) => {
+  const removeItem = () => remove(task.id);
+  const setItemStatus = () => setStatus(task);
   return (
     <li>
       <p>{task.taskName}</p>
       <p>{task.details}</p>
       <label>
         Done
-        <input type='checkbox' checked={task.done} onChange={setStatus} />
+        <input type='checkbox' checked={task.done} onChange={setItemStatus} />
       </label>
-      <button type='button' onClick={remove}>
+      <button type='button' onClick={removeItem}>
         Delete
       </button>
     </li>
