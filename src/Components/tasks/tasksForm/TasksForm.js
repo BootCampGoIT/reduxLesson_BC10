@@ -1,15 +1,17 @@
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
-import { addTasks } from "../../../redux/tasks/tasksActions";
-
+import { useDispatch, useSelector } from "react-redux";
+import { setError } from "../../../redux/tasks/tasksActions";
+import { addTaskOperation } from "../../../redux/tasks/tasksOperations";
 
 const TasksForm = () => {
+  const error = useSelector((state) => state.tasks.error);
   const [taskName, setTaskName] = useState("");
   const [details, setDetails] = useState("");
   const [done, setDone] = useState(false);
   const dispatch = useDispatch();
 
   const onHandleChange = ({ target }) => {
+    if (error) dispatch(setError(""));
     const { value, name } = target;
     name === "taskName" && setTaskName(value);
     name === "done" && setDone((prev) => !prev);
@@ -19,12 +21,13 @@ const TasksForm = () => {
   const onHandleSubmit = (e) => {
     e.preventDefault();
     // ================
-    dispatch(addTasks({ taskName, done, details }));
+    // dispatch(addTasks({ taskName, done, details }));
+    dispatch(addTaskOperation({ taskName, done, details }));
     setTaskName("");
     setDetails("");
     setDone(false);
   };
-  
+
   return (
     <form onSubmit={onHandleSubmit}>
       <label>

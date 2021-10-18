@@ -1,26 +1,32 @@
 import { createAction, nanoid } from "@reduxjs/toolkit";
-import { ADDTASK, REMOVETASK, SETTASKSTATUS } from "./tasksTypes";
+import {
+  ADDTASK,
+  GETTASKS,
+  REMOVETASK,
+  SETERROR,
+  SETFILTER,
+  SETLOADER,
+  SETTASKSTATUS,
+} from "./tasksTypes";
 
+// ============= items ==================
 const addTasks = createAction(ADDTASK, (task) => ({
-  payload: { ...task, id: nanoid() },
+  payload: task,
 }));
 const removeTask = createAction(REMOVETASK);
 const setTaskStatus = createAction(SETTASKSTATUS);
+const getTasks = createAction(GETTASKS);
 
-export { addTasks, removeTask, setTaskStatus };
-
-// ==================== redux ===================
-
-// import { ADDTASK, REMOVETASK, SETTASKSTATUS } from "./tasksTypes";
-
-// const addTasks = (task) => ({
-//   type: ADDTASK,
-//   payload: task,
-// });
-
-// const removeTask = (id) => ({ type: REMOVETASK, payload: id });
-// const setTaskStatus = (id) => ({ type: SETTASKSTATUS, payload: id });
-
-// export { addTasks, removeTask, setTaskStatus };
-
-// const addTask = createAction(ADDTASK);
+// ================= loader ===================
+const setLoader = createAction(SETLOADER);
+const setError = createAction(SETERROR);
+const setFilter = createAction(SETFILTER);
+export {
+  addTasks,
+  removeTask,
+  setTaskStatus,
+  setLoader,
+  setError,
+  getTasks,
+  setFilter,
+};

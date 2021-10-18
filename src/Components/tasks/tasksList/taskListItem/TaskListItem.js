@@ -1,14 +1,14 @@
 import React from "react";
 import { useDispatch } from "react-redux";
 import {
-  removeTask,
-  setTaskStatus,
-} from "../../../../redux/tasks/tasksActions";
+  removeTasksOperation,
+  setTaskStatusOperation,
+} from "../../../../redux/tasks/tasksOperations";
 
 const TaskListItem = ({ task }) => {
   const dispatch = useDispatch();
-  const setStatus = () => dispatch(setTaskStatus(task.id));
-  const remove = () => dispatch(removeTask(task.id));
+  const setStatus = () => dispatch(setTaskStatusOperation(task));
+  const remove = () => dispatch(removeTasksOperation(task.id));
   return (
     <li>
       <p>{task.taskName}</p>

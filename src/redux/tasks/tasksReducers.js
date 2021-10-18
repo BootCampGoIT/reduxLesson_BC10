@@ -1,7 +1,16 @@
 import { createReducer, combineReducers } from "@reduxjs/toolkit";
-import { addTasks, removeTask, setTaskStatus } from "./tasksActions";
+import {
+  addTasks,
+  getTasks,
+  removeTask,
+  setError,
+  setFilter,
+  setLoader,
+  setTaskStatus,
+} from "./tasksActions";
 
 const tasksListReducer = createReducer([], {
+  [getTasks]: (_, action) => action.payload,
   [addTasks]: (state, action) => [...state, action.payload],
   [removeTask]: (state, action) =>
     state.filter((task) => task.id !== action.payload),
@@ -10,36 +19,22 @@ const tasksListReducer = createReducer([], {
       task.id === action.payload ? { ...task, done: !task.done } : task
     ),
 });
-const tasksLoaderReducer = createReducer(false, {});
+
+const tasksLoaderReducer = createReducer(false, {
+  [setLoader]: (state) => !state,
+});
+
+const errorReducer = createReducer("", {
+  [setError]: (_, action) => action.payload,
+});
+
+const filterReducer = createReducer("", {
+  [setFilter]: (_, action) => action.payload,
+});
+
 export const tasksReducer = combineReducers({
   list: tasksListReducer,
   isLoading: tasksLoaderReducer,
+  error: errorReducer,
+  filter: filterReducer,
 });
-
-// ========================== redux ====================
-// import { combineReducers } from "redux";
-// import { ADDTASK, REMOVETASK, SETTASKSTATUS } from "./tasksTypes";
-
-// const tasksListReducer = (state = [], action) => {
-//   switch (action.type) {
-//     case ADDTASK:
-//       return [...state, action.payload];
-//     case REMOVETASK:
-//       return state.filter((task) => task.id !== action.payload);
-//     case SETTASKSTATUS:
-//       return state.map((task) =>
-//         task.id === action.payload ? { ...task, done: !task.done } : task
-//       );
-//     default:
-//       return state;
-//   }
-// };
-
-// const constTasksLoaderReducer = (state = false, action) => {
-//   return state;
-// };
-
-// export const tasksReducer = combineReducers({
-//   list: tasksListReducer,
-//   isLoading: constTasksLoaderReducer,
-// });
