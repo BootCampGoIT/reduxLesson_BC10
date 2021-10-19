@@ -1,8 +1,24 @@
-import { configureStore, combineReducers } from "@reduxjs/toolkit";
+import {
+  configureStore,
+  combineReducers,
+  createReducer,
+  createAction,
+} from "@reduxjs/toolkit";
+import { authReducer } from "./auth/authReducers";
 import { tasksReducer } from "./tasks/tasksReducers";
+
+// ==================
+export const increment = createAction("counter/increment");
+
+const counterReducer = createReducer(0, {
+  [increment]: (state) => (state += 1),
+});
+// ====================
 
 const rootReducer = combineReducers({
   tasks: tasksReducer,
+  authorization: authReducer,
+  counter: counterReducer,
 });
 
 const store = configureStore({
