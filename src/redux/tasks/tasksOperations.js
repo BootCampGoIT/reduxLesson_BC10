@@ -10,10 +10,11 @@ import {
 
 const addTaskOperation = (task) => async (dispatch, getState) => {
   const localId = getState().authorization.tokens.localId;
+  const idToken = getState().authorization.tokens.idToken;
   dispatch(setLoader());
   try {
     const response = await axios.post(
-      `https://schoology-fa20e-default-rtdb.firebaseio.com/tasks/${localId}.json`,
+      `https://schoology-fa20e-default-rtdb.firebaseio.com/${localId}/tasks.json?auth=${idToken}`,
       task
     );
     dispatch(addTasks({ ...task, id: response.data.name }));
@@ -28,14 +29,11 @@ const getTasksOperation = () => async (dispatch, getState) => {
   const idToken = getState().authorization.tokens.idToken;
   dispatch(setLoader());
   try {
+    console.log(`object`, localId, idToken);
     const response = await axios.get(
-      `https://schoology-fa20e-default-rtdb.firebaseio.com/tasks/${localId}.json?auth=${idToken}`
-      // {
-      //   headers: {
-      //     Authorization: `Bearer ${idToken}`,
-      //   },
-      // }
+      `https://schoology-fa20e-default-rtdb.firebaseio.com/${localId}/tasks.json?auth=${idToken}`
     );
+    console.log(`response`, response);
 
     if (response.data) {
       const tasks = Object.keys(response.data).map((key) => ({
@@ -52,10 +50,11 @@ const getTasksOperation = () => async (dispatch, getState) => {
 };
 const removeTasksOperation = (id) => async (dispatch, getState) => {
   const localId = getState().authorization.tokens.localId;
+  const idToken = getState().authorization.tokens.idToken;
   dispatch(setLoader());
   try {
     await axios.delete(
-      `https://schoology-fa20e-default-rtdb.firebaseio.com/tasks/${localId}/${id}.json`
+      `https://schoology-fa20e-default-rtdb.firebaseio.com/${localId}/tasks/${id}.json?auth=${idToken}`
     );
     dispatch(removeTask(id));
   } catch (error) {
@@ -67,10 +66,11 @@ const removeTasksOperation = (id) => async (dispatch, getState) => {
 
 const setTaskStatusOperation = (task) => async (dispatch, getState) => {
   const localId = getState().authorization.tokens.localId;
+  const idToken = getState().authorization.tokens.idToken;
   dispatch(setLoader());
   try {
     await axios.patch(
-      `https://schoology-fa20e-default-rtdb.firebaseio.com/tasks/${localId}/${task.id}.json`,
+      `https://schoology-fa20e-default-rtdb.firebaseio.com/${localId}/tasks/${task.id}.json?auth=${idToken}`,
       { done: !task.done }
     );
     dispatch(setTaskStatus(task.id));

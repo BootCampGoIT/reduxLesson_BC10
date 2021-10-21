@@ -22,7 +22,7 @@ const Tasks = () => {
   const filter = useSelector(tasksFilterSelector);
   const isLoading = useSelector(tasksLoaderSelector);
   const error = useSelector(tasksErrorSelector);
-  const filteredTasks = useSelector((state) => tasksFilteredTasks(state));
+  const filteredTasks = useSelector(tasksFilteredTasks);
 
   useEffect(() => {
     dispatch(getTasksOperation());

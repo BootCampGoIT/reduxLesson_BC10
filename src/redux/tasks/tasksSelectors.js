@@ -3,6 +3,7 @@ import { createSelector } from "@reduxjs/toolkit";
 
 const tasksFilterSelector = (state) => state.tasks.filter; //""
 const tasksListSelector = (state) => state.tasks.list; //[{},{}]
+
 const tasksLoaderSelector = (state) => state.tasks.isLoading;
 const tasksErrorSelector = (state) => state.tasks.error;
 
