@@ -1,13 +1,12 @@
 import React from "react";
-import Auth from "./auth/Auth";
-import Tasks from "./tasks/Tasks";
+import Header from "./header/Header";
+import Main from "./main/Main";
 
 const App = () => {
   return (
     <>
-      <Auth />
-      <hr />
-      <Tasks />
+      <Header />
+      <Main />
     </>
   );
 };

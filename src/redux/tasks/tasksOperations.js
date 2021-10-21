@@ -9,10 +9,11 @@ import {
 } from "./tasksActions";
 
 const addTaskOperation = (task) => async (dispatch, getState) => {
+  const localId = getState().authorization.tokens.localId;
   dispatch(setLoader());
   try {
     const response = await axios.post(
-      `https://schoology-fa20e-default-rtdb.firebaseio.com/tasks.json`,
+      `https://schoology-fa20e-default-rtdb.firebaseio.com/tasks/${localId}.json`,
       task
     );
     dispatch(addTasks({ ...task, id: response.data.name }));
@@ -22,11 +23,18 @@ const addTaskOperation = (task) => async (dispatch, getState) => {
     dispatch(setLoader());
   }
 };
-const getTasksOperation = () => async (dispatch) => {
+const getTasksOperation = () => async (dispatch, getState) => {
+  const localId = getState().authorization.tokens.localId;
+  const idToken = getState().authorization.tokens.idToken;
   dispatch(setLoader());
   try {
     const response = await axios.get(
-      `https://schoology-fa20e-default-rtdb.firebaseio.com/tasks.json`
+      `https://schoology-fa20e-default-rtdb.firebaseio.com/tasks/${localId}.json?auth=${idToken}`
+      // {
+      //   headers: {
+      //     Authorization: `Bearer ${idToken}`,
+      //   },
+      // }
     );
 
     if (response.data) {
@@ -43,10 +51,11 @@ const getTasksOperation = () => async (dispatch) => {
   }
 };
 const removeTasksOperation = (id) => async (dispatch, getState) => {
+  const localId = getState().authorization.tokens.localId;
   dispatch(setLoader());
   try {
     await axios.delete(
-      `https://schoology-fa20e-default-rtdb.firebaseio.com/tasks/${id}.json`
+      `https://schoology-fa20e-default-rtdb.firebaseio.com/tasks/${localId}/${id}.json`
     );
     dispatch(removeTask(id));
   } catch (error) {
@@ -57,10 +66,11 @@ const removeTasksOperation = (id) => async (dispatch, getState) => {
 };
 
 const setTaskStatusOperation = (task) => async (dispatch, getState) => {
+  const localId = getState().authorization.tokens.localId;
   dispatch(setLoader());
   try {
     await axios.patch(
-      `https://schoology-fa20e-default-rtdb.firebaseio.com/tasks/${task.id}.json`,
+      `https://schoology-fa20e-default-rtdb.firebaseio.com/tasks/${localId}/${task.id}.json`,
       { done: !task.done }
     );
     dispatch(setTaskStatus(task.id));

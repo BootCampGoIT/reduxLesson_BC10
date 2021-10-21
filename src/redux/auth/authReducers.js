@@ -12,16 +12,32 @@ import {
 } from "./authActions";
 
 const authUserReducer = createReducer(null, {
-  // [signUp]: (_, action) => action.payload,
-  // [signIn]: (_, action) => action.payload,
-  [signUpSuccess]: (_, action) => action.payload,
-  [signInSuccess]: (_, action) => action.payload,
+  [signUpSuccess]: (_, action) => ({
+    displayName: action.payload.displayName,
+    email: action.payload.email,
+  }),
+  [signInSuccess]: (_, action) => ({
+    displayName: action.payload.displayName,
+    email: action.payload.email,
+  }),
   [signOutSuccess]: () => null,
-  // [signOut]: () => null,
+});
+
+const authTokensReducer = createReducer(null, {
+  [signUpSuccess]: (_, action) => ({
+    idToken: action.payload.idToken,
+    refreshToken: action.payload.refreshToken,
+    localId: action.payload.localId,
+  }),
+  [signInSuccess]: (_, action) => ({
+    idToken: action.payload.idToken,
+    refreshToken: action.payload.refreshToken,
+    localId: action.payload.localId,
+  }),
+  [signOutSuccess]: () => null,
 });
 
 const authLoaderReducer = createReducer(false, {
-  // [setLoader]: (state) => !state,
   [signUpRequest]: () => true,
   [signUpSuccess]: () => false,
   [signUpError]: () => false,
@@ -31,17 +47,19 @@ const authLoaderReducer = createReducer(false, {
   [signOutRequest]: () => true,
   [signOutSuccess]: () => false,
   [signOutError]: () => false,
+  
 });
 
 const authErrorReducer = createReducer("", {
-  // [setError]: (_, action) => action.payload,
   [signUpError]: (_, action) => action.payload,
   [signInError]: (_, action) => action.payload,
   [signOutError]: (_, action) => action.payload,
+  [signOutSuccess]: () => "",
 });
 
 export const authReducer = combineReducers({
   user: authUserReducer,
+  tokens: authTokensReducer,
   isLoading: authLoaderReducer,
   error: authErrorReducer,
 });

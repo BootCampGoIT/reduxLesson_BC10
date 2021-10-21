@@ -1,23 +1,39 @@
 import React, { useState } from "react";
+import { useLocation } from "react-router-dom";
 
-const AuthForm = ({ resetError, signUp }) => {
+const AuthForm = ({ signUp, signIn }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [displayName, setDisplayName] = useState("");
+  const location = useLocation();
 
   const onHandleChange = (e) => {
-    resetError();
     const { name, value } = e.target;
     name === "email" && setEmail(value);
     name === "password" && setPassword(value);
+    name === "displayName" && setDisplayName(value);
   };
 
   const onHandleSubmit = (e) => {
     e.preventDefault();
-    signUp({ email, password });
+    location.pathname === "/signup"
+      ? signUp({ email, password, displayName })
+      : signIn({ email, password });
   };
 
   return (
     <form onSubmit={onHandleSubmit}>
+      {location.pathname === "/signup" && (
+        <label>
+          Name
+          <input
+            type='text'
+            value={displayName}
+            onChange={onHandleChange}
+            name='displayName'
+          />
+        </label>
+      )}
       <label>
         Email
         <input
@@ -36,7 +52,9 @@ const AuthForm = ({ resetError, signUp }) => {
           name='password'
         />
       </label>
-      <button type='submit'>Sign up</button>
+      <button type='submit'>
+        {location.pathname === "/signup" ? "Sign up" : "Sign in"}
+      </button>
     </form>
   );
 };

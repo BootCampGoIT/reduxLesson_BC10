@@ -1,4 +1,5 @@
 import { createReducer, combineReducers } from "@reduxjs/toolkit";
+import { signOutSuccess } from "../auth/authActions";
 import {
   addTasks,
   getTasks,
@@ -18,18 +19,22 @@ const tasksListReducer = createReducer([], {
     state.map((task) =>
       task.id === action.payload ? { ...task, done: !task.done } : task
     ),
+  [signOutSuccess]: () => [],
 });
 
 const tasksLoaderReducer = createReducer(false, {
   [setLoader]: (state) => !state,
+  [signOutSuccess]: () => false,
 });
 
 const errorReducer = createReducer("", {
   [setError]: (_, action) => action.payload,
+  [signOutSuccess]: () => "",
 });
 
 const filterReducer = createReducer("", {
   [setFilter]: (_, action) => action.payload,
+  [signOutSuccess]: () => "",
 });
 
 export const tasksReducer = combineReducers({

@@ -16,7 +16,7 @@ export const signUpSuccess = createAction("auth/signUpSuccess");
 export const signUpError = createAction("auth/signUpError");
 
 export const signInRequest = createAction("auth/signInRequest");
-export const signInSuccess = createAction("auth/signInRequest");
+export const signInSuccess = createAction("auth/signInSuccess");
 export const signInError = createAction("auth/signInError");
 
 export const signOutRequest = createAction(SIGNOUTREQUEST);
