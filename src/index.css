@@ -17,3 +17,89 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
 }
+
+button {
+  color: #ffffff;
+  background-color: #819ff5;
+  height: 25px;
+  font-weight: 700;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  border: none;
+  border-radius: 16px;
+  outline: none;
+  cursor: pointer;
+  padding: 0 24px;
+  transition: all 300ms linear;
+}
+
+button:hover {
+  background-color: #5f73a1;
+}
+
+label {
+  color: #dbd7d8;
+  outline: none;
+}
+ul {
+  list-style: none;
+}
+
+input,
+select {
+  color: #111111;
+  border: 1px solid #819ff5;
+  height: 26px;
+  border-radius: 16px;
+  outline: none;
+  padding: 0 12px;
+  width: 100%;
+  margin: 8px 0;
+}
+
+input::-webkit-input-placeholder {
+  color: "#dbd7d8";
+}
+input::-moz-placeholder {
+  color: "#dbd7d8";
+}
+input:-moz-placeholder {
+  color: "#dbd7d8";
+}
+input:-ms-input-placeholder {
+  color: "#dbd7d8";
+}
+
+input::-webkit-input-placeholder {
+  opacity: 0.5;
+  transition: opacity 0.3s linear;
+}
+input::-moz-placeholder {
+  opacity: 0.5;
+  transition: opacity 0.3s linear;
+}
+input:-moz-placeholder {
+  opacity: 0.5;
+  transition: opacity 0.3s linear;
+}
+input:-ms-input-placeholder {
+  opacity: 0.5;
+  transition: opacity 0.3s linear;
+}
+input:focus::-webkit-input-placeholder {
+  opacity: 0;
+  transition: opacity 0.3s linear;
+}
+input:focus::-moz-placeholder {
+  opacity: 0;
+  transition: opacity 0.3s linear;
+}
+input:focus:-moz-placeholder {
+  opacity: 0;
+  transition: opacity 0.3s linear;
+}
+input:focus:-ms-input-placeholder {
+  opacity: 0;
+  transition: opacity 0.3s linear;
+}

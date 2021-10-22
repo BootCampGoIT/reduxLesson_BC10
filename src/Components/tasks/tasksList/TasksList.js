@@ -1,9 +1,18 @@
 import React from "react";
 import TaskListItem from "./taskListItem/TaskListItem";
+import sprite from "../../../icons/sprite.svg";
+import { TasksListContainer } from "./TasksListStyled";
 
-const TasksList = ({ tasks, setStatus, remove }) => {
+const TasksList = ({ tasks, setStatus, remove, toggleForm }) => {
   return (
-    <ul>
+    <TasksListContainer>
+      <li onClick={toggleForm} className='taskListItem taskListItemPlus'>
+        <div className='taskListItemBorder taskListItemBorderPlus'>
+          <svg className='taskListItemIcon'>
+            <use href={sprite + "#icon-plus"} />
+          </svg>
+        </div>
+      </li>
       {tasks.map((task) => (
         <TaskListItem
           key={task.id}
@@ -12,7 +21,7 @@ const TasksList = ({ tasks, setStatus, remove }) => {
           remove={remove}
         />
       ))}
-    </ul>
+    </TasksListContainer>
   );
 };
 

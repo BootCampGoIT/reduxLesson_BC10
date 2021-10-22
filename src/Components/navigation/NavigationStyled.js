@@ -13,6 +13,11 @@ export const NavigationContainer = styled.nav`
     text-decoration: none;
     text-transform: uppercase;
     color: #819ff5;
+    cursor: pointer;
+    font-weight: 600;
+    &:hover {
+      color: #5f73a1;
+    }
   }
   .activeNavLink {
     color: #5f73a1;

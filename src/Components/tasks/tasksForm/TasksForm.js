@@ -34,7 +34,7 @@ const TasksForm = ({ resetError, createTask }) => {
       </label>
       <label>
         Details:
-        <input
+        <textarea
           type='text'
           name='details'
           value={details}
