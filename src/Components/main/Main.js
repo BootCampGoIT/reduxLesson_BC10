@@ -6,11 +6,12 @@ import { isAuthSelector } from "../../redux/auth/authSelectors";
 import { mainRoutes } from "../../routes/mainRoutes";
 import PrivateRoute from "../../routes/PrivateRoute";
 import PublicRoute from "../../routes/PublicRoute";
+import { MainContainer } from "./MainStyled";
 const Main = () => {
   const isAuth = useSelector(isAuthSelector);
   // const isAuth = false;
   return (
-    <main>
+    <MainContainer>
       <Suspense fallback={<h2>...loading</h2>}>
         <Switch>
           {mainRoutes.map(
@@ -36,7 +37,7 @@ const Main = () => {
           )}
         </Switch>
       </Suspense>
-    </main>
+    </MainContainer>
   );
 };
 

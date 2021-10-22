@@ -15,6 +15,9 @@ const signUpOperation = (user) => async (dispatch) => {
       ...user,
       returnSecureToken: true,
     });
+    document.cookie = `token=${response.data.idToken}; max-age=${Number(
+      response.data.expiresIn
+    )}`;
     dispatch(signUpSuccess(response.data));
   } catch (error) {
     dispatch(signUpError(error.response.data.error.message));
@@ -28,6 +31,9 @@ const signInOperation = (user) => async (dispatch) => {
       ...user,
       returnSecureToken: true,
     });
+    document.cookie = `token=${response.data.idToken}; max-age=${Number(
+      response.data.expiresIn
+    )}`;
     dispatch(signInSuccess(response.data));
   } catch (error) {
     dispatch(signInError(error.response.data.error.message));
